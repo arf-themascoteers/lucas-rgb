@@ -1,33 +1,31 @@
 import torch
 import torch.nn.functional as F
-from lucas_dataset import LucasDataset
+import ds_manager
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from lucas_machine import LucasMachine
 import time
 
-def train(device, ds, use_new_x = False):
-    size = 33
-    if use_new_x:
-        size = 34
+
+def train(device):
     batch_size = 30000
-    dataloader = DataLoader(ds, batch_size=batch_size, shuffle=True)
-    model = LucasMachine(size)
+    dm = ds_manager.DSManager()
+    train_ds = dm.get_train_ds()
+    dataloader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
+    model = LucasMachine()
     model.train()
     model.to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=0.001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.001)
     criterion = torch.nn.MSELoss(reduction='sum')
-    num_epochs = 1000
-    n_batches = int(len(ds)/batch_size) + 1
+    num_epochs = 100
+    n_batches = int(len(train_ds)/batch_size) + 1
     batch_number = 0
     loss = None
     start = time.time()
     for epoch in range(num_epochs):
         batch_number = 0
-        for (x, y, new_x) in dataloader:
+        for (x, y) in dataloader:
             x = x.to(device)
-            if use_new_x:
-                x = new_x.to(device)
             y = y.to(device)
             y_hat = model(x)
             y_hat = y_hat.reshape(-1)
@@ -42,7 +40,7 @@ def train(device, ds, use_new_x = False):
     end = time.time()
     required = end - start
     print(f"Train seconds: {required}")
-    #torch.save(model, 'models/soc.h5')
+    torch.save(model, 'models/soc.h5')
     return model
 
 #

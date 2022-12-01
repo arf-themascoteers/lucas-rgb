@@ -30,6 +30,18 @@ class LucasDataset(Dataset):
         return self.df[:,0]
 
     def get_x(self):
+        # inv_blue = 1/self.df[:, 1:2]
+        # inv_green = 1/self.df[:, 2:3]
+        # inv_red = 1 / self.df[:, 3:4]
+        #
+        # inv_blue_sq = 1/(self.df[:, 1:2]**2)
+        # inv_green_sq = 1/(self.df[:, 2:3]**2)
+        # inv_red_sq = 1/(self.df[:, 3:4]**2)
+        #
+        # x = np.concatenate((self.df[:,1:],
+        #                     inv_blue, inv_green, inv_red,
+        #                     inv_blue_sq, inv_green_sq,
+        #                     inv_red_sq), axis=1)
         return self.df[:,1:]
 
     def get_si(self, sif):
