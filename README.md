@@ -27,4 +27,10 @@ kfold
 > with inv green: 0.54427234100942
 
 
+rf
+==
+bgr + soci : 0.681
+bgr + soci : 0.675
+
+
 
