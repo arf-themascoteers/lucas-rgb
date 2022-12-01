@@ -10,10 +10,14 @@ def plot_please(NP_FILE):
     x_ticks = [0,1,2]
     xticklabels = ["Blue", "Green", "Red"]
     with sns.axes_style("white"):
-        ax = sns.heatmap(array, mask=mask, square=True, cmap="mako")
+        ax = sns.heatmap(array, mask=mask, cmap="mako", annot=True, fmt='.3f')
         ax.invert_yaxis()
-        plt.xticks(x_ticks, xticklabels, rotation='vertical', va="top" )
-        plt.yticks(x_ticks, xticklabels, rotation='horizontal')
+        plt.xticks(x_ticks, xticklabels, rotation='horizontal', va="top", ha="left" )
+        plt.yticks(x_ticks, xticklabels, rotation='horizontal', va = "center")
     plt.show()
     print(array)
     print("done")
+
+if __name__ == "__main__":
+    NP_FILE = "nps/ndi.npy"
+    plot_please(NP_FILE)

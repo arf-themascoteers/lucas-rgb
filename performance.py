@@ -20,7 +20,7 @@ def run_plz(NP_FILE, si):
             si_fun = partial(si, x=i, y=j)
             train_x = train_ds.get_si(si_fun)
             test_x = test_ds.get_si(si_fun)
-            matrix[i][j] = linear.get_r2(train_x, train_y, test_x, test_y)
+            matrix[i,j] = linear.get_r2(train_x, train_y, test_x, test_y)
 
         print(f"Done {i} among {size}")
         np.save(NP_FILE, matrix)
