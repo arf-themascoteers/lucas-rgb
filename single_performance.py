@@ -7,15 +7,7 @@ NP_FILE = "nps/single.npy"
 SIZE = 3
 
 
-def si(mat, x, y):
-    return ((mat[:, x] - mat[:, y]) / (mat[:, x] + mat[:, y])).reshape(-1, 1)
-
-
-def single(mat, x):
-    return (mat[:, x]).reshape(-1, 1)
-
-
-def run_plz():
+def run_plz(NP_FILE, single):
     matrix = np.zeros([3])
     np.save(NP_FILE, matrix)
     dm = ds_manager.DSManager()
