@@ -19,6 +19,7 @@ NN
 ==
 3X1 : 0.2
 3X100X1: 0.54
+3X100X1 - 1000 epochs: 0.64
 + inv-green: 0.553
 
 kfold
