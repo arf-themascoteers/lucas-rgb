@@ -9,9 +9,9 @@ class LucasDataset(Dataset):
         self.scaler = None
         self.df = self._preprocess(source)
         self.x = self.df[:,1:]
-        #inv_green = 1 / self.df[:, 2:3]
+        inv_green = 1 / self.df[:, 2:3]
         #inv_blue = 1 / (self.df[:, 1:2]**2)
-        #self.x = np.concatenate((self.x, inv_green), axis=1)
+        self.x = np.concatenate((self.x, inv_green), axis=1)
 
     def _preprocess(self, source):
         self.scaler = MinMaxScaler()
