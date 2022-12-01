@@ -7,9 +7,9 @@ class LucasMachine(nn.Module):
     def __init__(self):
         super().__init__()
         self.fc = nn.Sequential(
-            nn.Linear(3, 1),
-            # nn.ReLU(),
-            # nn.Linear(5, 4),
+            nn.Linear(3, 100),
+            nn.ReLU(),
+            nn.Linear(100, 1)
             # nn.ReLU(),
             # nn.Linear(4, 1)
         )

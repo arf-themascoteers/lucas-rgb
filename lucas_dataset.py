@@ -3,10 +3,15 @@ from torch.utils.data import Dataset
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
+
 class LucasDataset(Dataset):
     def __init__(self, source):
         self.scaler = None
         self.df = self._preprocess(source)
+        self.x = self.df[:,1:]
+        #inv_green = 1 / self.df[:, 2:3]
+        #inv_blue = 1 / (self.df[:, 1:2]**2)
+        #self.x = np.concatenate((self.x, inv_green), axis=1)
 
     def _preprocess(self, source):
         self.scaler = MinMaxScaler()
@@ -30,19 +35,8 @@ class LucasDataset(Dataset):
         return self.df[:,0]
 
     def get_x(self):
-        # inv_blue = 1/self.df[:, 1:2]
-        # inv_green = 1/self.df[:, 2:3]
-        # inv_red = 1 / self.df[:, 3:4]
-        #
-        # inv_blue_sq = 1/(self.df[:, 1:2]**2)
-        # inv_green_sq = 1/(self.df[:, 2:3]**2)
-        # inv_red_sq = 1/(self.df[:, 3:4]**2)
-        #
-        # x = np.concatenate((self.df[:,1:],
-        #                     inv_blue, inv_green, inv_red,
-        #                     inv_blue_sq, inv_green_sq,
-        #                     inv_red_sq), axis=1)
-        return self.df[:,1:]
+        return self.x
+        #return
 
     def get_si(self, sif):
         return sif(self.get_x())
