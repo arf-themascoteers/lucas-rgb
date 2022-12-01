@@ -4,11 +4,13 @@ from sklearn.metrics import r2_score
 import time
 import ds_manager
 
-def test(device, model):
+
+def test(device, model, ds=None):
     batch_size = 30000
     dm = ds_manager.DSManager()
-    test_ds = dm.get_test_ds()
-    dataloader = DataLoader(test_ds, batch_size=batch_size, shuffle=True)
+    if ds is None:
+        ds = dm.get_test_ds()
+    dataloader = DataLoader(ds, batch_size=batch_size, shuffle=True)
     criterion = torch.nn.MSELoss(reduction='mean')
     model.eval()
     model.to(device)

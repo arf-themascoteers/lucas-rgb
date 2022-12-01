@@ -7,18 +7,19 @@ from lucas_machine import LucasMachine
 import time
 
 
-def train(device):
+def train(device, ds=None):
     batch_size = 30000
     dm = ds_manager.DSManager()
-    train_ds = dm.get_train_ds()
-    dataloader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
+    if ds is None:
+        ds = dm.get_train_ds()
+    dataloader = DataLoader(ds, batch_size=batch_size, shuffle=True)
     model = LucasMachine()
     model.train()
     model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.001)
     criterion = torch.nn.MSELoss(reduction='sum')
     num_epochs = 100
-    n_batches = int(len(train_ds)/batch_size) + 1
+    n_batches = int(len(ds)/batch_size) + 1
     batch_number = 0
     loss = None
     start = time.time()
