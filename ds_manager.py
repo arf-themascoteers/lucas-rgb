@@ -9,7 +9,7 @@ class DSManager:
         csv_file_location = "data/miner.csv"
         df = pd.read_csv(csv_file_location)
         npdf = df.to_numpy()
-        self.train, self.test = model_selection.train_test_split(npdf, test_size=0.2)
+        self.train, self.test = model_selection.train_test_split(npdf, test_size=0.2, random_state=1)
         self.test_ds = None
         self.train_ds = None
 
