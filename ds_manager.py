@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 
 class DSManager:
     def __init__(self):
-        csv_file_location = "data/miner.csv"
+        csv_file_location = "data/bgr.csv"
         df = pd.read_csv(csv_file_location)
         npdf = df.to_numpy()
         self.train, self.test = model_selection.train_test_split(npdf, test_size=0.2, random_state=1)
