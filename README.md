@@ -22,6 +22,11 @@ NN
 3X100X1 - 1000 epochs: 0.64
 + inv-green: 0.553
 
+only hsv:
+    LR 0.33
+    RF
+    NN
+
 kfold
 ========
 >>> bgr only: 0.5430285010102671

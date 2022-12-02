@@ -16,13 +16,14 @@ class LucasDataset(Dataset):
             self.hsv[index, 0] = a_hsv[0]
             self.hsv[index, 1] = a_hsv[1]
             self.hsv[index, 2] = a_hsv[2]
-        blue = self.x[:, 0]
-        green = self.x[:, 1]
-        red = self.x[:, 2]
-        soci = ((blue) / (red * green)).reshape(-1, 1)
+        # blue = self.x[:, 0]
+        # green = self.x[:, 1]
+        # red = self.x[:, 2]
+        #soci = ((blue) / (red * green)).reshape(-1, 1)
         # inv_green = (1/green).reshape(-1, 1)
         # inv_blue_sq = (1/(blue**2)).reshape(-1, 1)
-        self.x = np.concatenate((self.x, self.hsv, soci), axis=1)
+        self.x = np.concatenate((self.x, self.hsv), axis=1)
+
 
     def _preprocess(self, source):
         self.scaler = MinMaxScaler()
