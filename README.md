@@ -31,7 +31,7 @@ kfold
 rf
 ==
 bgr + soci : 0.681
-bgr + soci : 0.675
+bgr  : 0.675
 
-
+bgr + hsv : 0.72
 

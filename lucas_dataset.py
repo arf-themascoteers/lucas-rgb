@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import Dataset
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
+import colorsys
 
 
 class LucasDataset(Dataset):
@@ -9,13 +10,19 @@ class LucasDataset(Dataset):
         self.scaler = None
         self.df = self._preprocess(source)
         self.x = self.df[:,1:]
-        # blue = self.x[:, 0]
-        # green = self.x[:, 1]
-        # red = self.x[:, 2]
-        # soci = ((blue) / (red * green)).reshape(-1, 1)
+        self.hsv = np.zeros_like(self.x)
+        for index, row in enumerate(self.x):
+            a_hsv = colorsys.rgb_to_hsv(row[2], row[1], row[0])
+            self.hsv[index, 0] = a_hsv[0]
+            self.hsv[index, 1] = a_hsv[1]
+            self.hsv[index, 2] = a_hsv[2]
+        blue = self.x[:, 0]
+        green = self.x[:, 1]
+        red = self.x[:, 2]
+        soci = ((blue) / (red * green)).reshape(-1, 1)
         # inv_green = (1/green).reshape(-1, 1)
         # inv_blue_sq = (1/(blue**2)).reshape(-1, 1)
-        # self.x = np.concatenate((self.x, soci, inv_green, inv_blue_sq), axis=1)
+        self.x = np.concatenate((self.x, self.hsv, soci), axis=1)
 
     def _preprocess(self, source):
         self.scaler = MinMaxScaler()
